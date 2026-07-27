@@ -9,26 +9,25 @@ import lombok.Data;
 @Data
 public class UserRegistrationRequest {
 
-    @NotBlank(message = "Username is required")
-    @Size(min = 4, max = 50)
-    private String username;
-
-    @NotBlank(message = "Full Name is required")
+    @NotBlank(message = "Full name is required")
     private String fullName;
 
+    @NotBlank(message = "Username is required")
+    @Size(min = 4, max = 20)
+    private String username;
+
     @NotBlank(message = "Email is required")
-    @Email
+    @Email(message = "Invalid email")
     private String email;
 
-    @NotBlank(message = "Mobile Number is required")
-    @Pattern(regexp = "^[6-9]\\d{9}$",
-            message = "Enter a valid 10-digit mobile number")
+    @NotBlank(message = "Mobile number is required")
+    @Pattern(regexp = "^[6-9][0-9]{9}$", message = "Invalid mobile number")
     private String mobileNumber;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, max = 50)
+    @Size(min = 6)
     private String password;
 
-    @NotBlank(message = "Confirm Password is required")
+    @NotBlank(message = "Confirm password is required")
     private String confirmPassword;
 }
