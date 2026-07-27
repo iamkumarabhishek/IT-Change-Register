@@ -1,0 +1,87 @@
+#########################################################
+# HEALTH
+#########################################################
+
+### Health Check
+GET http://localhost:8080/api/health
+
+
+#########################################################
+# AUTHENTICATION
+#########################################################
+
+### Register User
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Test User",
+  "username": "test001",
+  "email": "test@gmail.com",
+  "mobileNumber": "9876543211",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
+###
+
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "abhishek",
+  "password": "password123"
+}
+
+###
+
+### Current User
+GET http://localhost:8080/api/auth/me
+
+###
+
+### Change Password
+PUT http://localhost:8080/api/auth/change-password
+Content-Type: application/json
+
+{
+  "username": "abhishek",
+  "oldPassword": "password123",
+  "newPassword": "newpassword123",
+  "confirmPassword": "newpassword123"
+}
+
+###
+
+### Forgot Password
+POST http://localhost:8080/api/auth/forgot-password
+Content-Type: application/json
+
+###
+POST http://localhost:8080/api/auth/logout
+Content-Type: application/json
+
+{
+  "username": "abhishek"
+}
+
+
+#########################################################
+# USER MANAGEMENT
+#########################################################
+
+###
+
+### Pending Users
+GET http://localhost:8080/api/users/pending
+
+###
+
+### Approve User
+PUT http://localhost:8080/api/users/1/approve
+
+###
+
+### Active Users
+GET http://localhost:8080/api/users/active

@@ -3,7 +3,7 @@ package com.cdac.itregister.entity;
 import com.cdac.itregister.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.cdac.itregister.enums.UserRole;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //comment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -38,6 +38,11 @@ public class User {
     @Column(nullable = false)
     @Builder.Default
     private UserStatus status = UserStatus.PENDING;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role = UserRole.IT_STAFF;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
