@@ -31,10 +31,13 @@ Content-Type: application/json
 
 {
   "username": "abhishek",
-  "password": "password123"
+  "password": "newpassword123"
 }
 
 ###
+
+### Logout
+POST http://localhost:8080/api/auth/logout
 
 ### Current User
 GET http://localhost:8080/api/auth/me
@@ -57,6 +60,10 @@ Content-Type: application/json
 ### Forgot Password
 POST http://localhost:8080/api/auth/forgot-password
 Content-Type: application/json
+
+{
+  "username": "abhishek"
+}
 
 ###
 POST http://localhost:8080/api/auth/logout

@@ -1,9 +1,6 @@
 package com.cdac.itregister.controller;
 
-import com.cdac.itregister.dto.ApiResponse;
-import com.cdac.itregister.dto.LoginRequest;
-import com.cdac.itregister.dto.LoginResponse;
-import com.cdac.itregister.dto.UserRegistrationRequest;
+import com.cdac.itregister.dto.*;
 import com.cdac.itregister.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +16,9 @@ public class AuthController {
         this.authService = authService;
     }
 
+    // =========================
+    // REGISTER
+    // =========================
     @PostMapping("/register")
     public ApiResponse<Object> registerUser(
             @Valid @RequestBody UserRegistrationRequest request) {
@@ -26,10 +26,45 @@ public class AuthController {
         return authService.registerUser(request);
     }
 
+    // =========================
+    // LOGIN
+    // =========================
     @PostMapping("/login")
     public ApiResponse<LoginResponse> login(
             @Valid @RequestBody LoginRequest request) {
 
         return authService.login(request);
+    }
+
+    // =========================
+    // CHANGE PASSWORD
+    // =========================
+    @PutMapping("/change-password")
+    public ApiResponse<Object> changePassword(
+            @Valid @RequestBody ChangePasswordRequest request) {
+
+        return authService.changePassword(request);
+    }
+
+    // =========================
+    // FORGOT PASSWORD
+    // =========================
+    @PostMapping("/forgot-password")
+    public ApiResponse<Object> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequest request) {
+
+        return authService.forgotPassword(request);
+    }
+
+    // =========================
+    // LOGOUT
+    // =========================
+    @PostMapping("/logout")
+    public ApiResponse<Object> logout() {
+
+        return ApiResponse.<Object>builder()
+                .success(true)
+                .message("Logged out successfully.")
+                .build();
     }
 }
