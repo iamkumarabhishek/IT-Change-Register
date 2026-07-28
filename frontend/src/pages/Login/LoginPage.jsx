@@ -4,9 +4,15 @@ import {
     Button,
     Box,
     Divider,
-    Link,
-    Stack
+    Stack,
+    IconButton,
+    InputAdornment
 } from "@mui/material";
+
+import {
+    Visibility,
+    VisibilityOff
+} from "@mui/icons-material";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +30,8 @@ function LoginPage() {
     });
 
     const [loading, setLoading] = useState(false);
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (event) => {
         setFormData({
@@ -106,11 +114,29 @@ function LoginPage() {
                 <TextField
                     fullWidth
                     name="password"
-                    type="password"
                     label="Password"
+                    type={showPassword ? "text" : "password"}
                     margin="dense"
                     value={formData.password}
                     onChange={handleChange}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        edge="end"
+                                        onClick={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                    >
+                                        {showPassword
+                                            ? <VisibilityOff />
+                                            : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }
+                    }}
                 />
 
                 <Button
@@ -139,17 +165,27 @@ function LoginPage() {
                 sx={{ mt: 2 }}
             >
 
-                <Link href="#" underline="hover">
+                <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate("/forgot-password")}
+                    sx={{ textTransform: "none" }}
+                >
                     Forgot Password?
-                </Link>
+                </Button>
 
                 <Typography color="text.secondary">
                     |
                 </Typography>
 
-                <Link href="#" underline="hover">
+                <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate("/users/add")}
+                    sx={{ textTransform: "none" }}
+                >
                     Register
-                </Link>
+                </Button>
 
             </Stack>
 

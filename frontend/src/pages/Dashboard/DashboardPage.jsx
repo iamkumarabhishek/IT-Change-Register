@@ -36,7 +36,7 @@ function DashboardPage() {
             <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ mb: 2 }}
+                sx={{ mb: 1 }}
             >
                 Welcome to the C-DAC IGIMS Correspondence Management System
             </Typography>
@@ -44,17 +44,17 @@ function DashboardPage() {
             <Paper
                 elevation={1}
                 sx={{
-                    p: 3,
+                    p: 2.5,
                     borderRadius: 2
                 }}
             >
 
                 <Grid
                     container
-                    spacing={3}
+                    spacing={2.5}
                 >
 
-                    {/* LEFT SIDE */}
+                    {/* LEFT SECTION */}
 
                     <Grid size={{ xs: 12, md: 7 }}>
 
@@ -68,13 +68,13 @@ function DashboardPage() {
                         <Typography
                             variant="body2"
                             color="text.secondary"
-                            sx={{ mt: 1 }}
+                            sx={{ mt: 0.5 }}
                         >
                             You have successfully logged in to the
                             Correspondence Management System.
                         </Typography>
 
-                        <Divider sx={{ my: 2 }} />
+                        <Divider sx={{ my: 1.5 }} />
 
                         <Typography
                             variant="subtitle1"
@@ -88,13 +88,13 @@ function DashboardPage() {
                             variant="body2"
                             color="text.secondary"
                             sx={{
-                                lineHeight: 1.6
+                                lineHeight: 1.55
                             }}
                         >
                             This application is developed by
                             <strong> C-DAC</strong> for
                             <strong> Indira Gandhi Institute of Medical Sciences (IGIMS)</strong>
-                            to digitally register, manage and track all official
+                            to digitally register, manage and track official
                             correspondence received by various departments.
 
                             <br /><br />
@@ -107,7 +107,7 @@ function DashboardPage() {
 
                     </Grid>
 
-                    {/* RIGHT SIDE */}
+                    {/* RIGHT SECTION */}
 
                     <Grid size={{ xs: 12, md: 5 }}>
 
@@ -119,67 +119,96 @@ function DashboardPage() {
                             Quick Guide
                         </Typography>
 
-                        <List
-                            dense
-                            disablePadding
-                        >
+                        <List dense disablePadding>
 
-                            <ListItem sx={{ py: 0.5 }}>
+                            <ListItem sx={{ py: 0.25 }}>
 
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <ArrowRight color="primary" fontSize="small" />
+                                <ListItemIcon sx={{ minWidth: 30 }}>
+                                    <ArrowRight
+                                        color="primary"
+                                        fontSize="small"
+                                    />
                                 </ListItemIcon>
 
                                 <ListItemText
-                                    primaryTypographyProps={{ fontSize: 14 }}
-                                    secondaryTypographyProps={{ fontSize: 12 }}
-                                    primary="New Request"
-                                    secondary="Register new correspondence."
+                                    primaryTypographyProps={{
+                                        fontSize: 14,
+                                        fontWeight: 500
+                                    }}
+                                    secondaryTypographyProps={{
+                                        fontSize: 12
+                                    }}
+                                    primary="Add Letter"
+                                    secondary="Register a new incoming letter."
                                 />
 
                             </ListItem>
 
-                            <ListItem sx={{ py: 0.5 }}>
+                            <ListItem sx={{ py: 0.25 }}>
 
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <ArrowRight color="primary" fontSize="small" />
+                                <ListItemIcon sx={{ minWidth: 30 }}>
+                                    <ArrowRight
+                                        color="primary"
+                                        fontSize="small"
+                                    />
                                 </ListItemIcon>
 
                                 <ListItemText
-                                    primaryTypographyProps={{ fontSize: 14 }}
-                                    secondaryTypographyProps={{ fontSize: 12 }}
-                                    primary="Request List"
-                                    secondary="Search and manage correspondence."
+                                    primaryTypographyProps={{
+                                        fontSize: 14,
+                                        fontWeight: 500
+                                    }}
+                                    secondaryTypographyProps={{
+                                        fontSize: 12
+                                    }}
+                                    primary="Letter List"
+                                    secondary="View, search and manage registered letters."
                                 />
 
                             </ListItem>
 
-                            <ListItem sx={{ py: 0.5 }}>
+                            <ListItem sx={{ py: 0.25 }}>
 
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <ArrowRight color="primary" fontSize="small" />
+                                <ListItemIcon sx={{ minWidth: 30 }}>
+                                    <ArrowRight
+                                        color="primary"
+                                        fontSize="small"
+                                    />
                                 </ListItemIcon>
 
                                 <ListItemText
-                                    primaryTypographyProps={{ fontSize: 14 }}
-                                    secondaryTypographyProps={{ fontSize: 12 }}
+                                    primaryTypographyProps={{
+                                        fontSize: 14,
+                                        fontWeight: 500
+                                    }}
+                                    secondaryTypographyProps={{
+                                        fontSize: 12
+                                    }}
                                     primary="Reports"
-                                    secondary="Generate correspondence reports."
+                                    secondary="Generate reports for registered letters."
                                 />
 
                             </ListItem>
 
-                            <ListItem sx={{ py: 0.5 }}>
+                            <ListItem sx={{ py: 0.25 }}>
 
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <ArrowRight color="primary" fontSize="small" />
+                                <ListItemIcon sx={{ minWidth: 30 }}>
+                                    <ArrowRight
+                                        color="primary"
+                                        fontSize="small"
+                                    />
                                 </ListItemIcon>
 
                                 <ListItemText
-                                    primaryTypographyProps={{ fontSize: 14 }}
-                                    secondaryTypographyProps={{ fontSize: 12 }}
+                                    primaryTypographyProps={{
+                                        fontSize: 14,
+                                        fontWeight: 500
+                                    }}
+                                    secondaryTypographyProps={{
+                                        fontSize: 12
+                                    }}
                                     primary="Profile"
-                                    secondary="Manage your profile and account."
+                                    secondary="Manage your account information."
                                 />
 
                             </ListItem>
@@ -190,7 +219,7 @@ function DashboardPage() {
 
                 </Grid>
 
-                <Divider sx={{ my: 2 }} />
+                <Divider sx={{ my: 1.5 }} />
 
                 <Box
                     sx={{

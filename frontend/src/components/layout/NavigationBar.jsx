@@ -1,19 +1,24 @@
 import {
     AppBar,
     Toolbar,
-    Button,
+    Tabs,
+    Tab,
     Box,
+    Button,
     Typography
 } from "@mui/material";
 
 import {
     Dashboard,
-    NoteAdd,
+    Description,
     ListAlt,
     Assessment,
     Person,
-    Logout
+    Logout,
+    Group
 } from "@mui/icons-material";
+
+
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -26,36 +31,44 @@ function NavigationBar() {
 
     const menus = [
         {
-            title: "Dashboard",
+            label: "Dashboard",
             icon: <Dashboard />,
             path: "/dashboard"
         },
         {
-            title: "New Request",
-            icon: <NoteAdd />,
-            path: "/request/new"
+            label: "Add Letter",
+            icon: <Description />,
+            path: "/letters/add"
         },
         {
-            title: "Request List",
+            label: "Letter List",
             icon: <ListAlt />,
-            path: "/requests"
+            path: "/letters"
         },
         {
-            title: "Reports",
+            label: "Users",
+            icon: <Group />,
+            path: "/users/add"
+        },
+        {
+            label: "Reports",
             icon: <Assessment />,
             path: "/reports"
         },
         {
-            title: "Profile",
+            label: "Profile",
             icon: <Person />,
             path: "/profile"
         }
     ];
 
+    const currentTab = menus.findIndex(
+        (menu) => menu.path === location.pathname
+    );
+
     const handleLogout = () => {
 
         localStorage.removeItem("user");
-
         navigate("/");
 
     };
@@ -64,54 +77,63 @@ function NavigationBar() {
 
         <AppBar
             position="static"
-            elevation={1}
+            elevation={2}
             sx={{
-                bgcolor: "#1565C0"
+                backgroundColor: "#1565C0",
+                borderRadius: "0 0 8px 8px"
             }}
         >
 
             <Toolbar
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between",
+                    minHeight: 58
                 }}
             >
 
-                <Box
+                <Tabs
+                    value={currentTab === -1 ? false : currentTab}
+                    textColor="inherit"
                     sx={{
-                        display: "flex",
-                        gap: 1
+                        "& .MuiTabs-indicator": {
+                            backgroundColor: "#FFD54F",
+                            height: 3,
+                            borderRadius: "3px 3px 0 0"
+                        },
+
+                        "& .MuiTab-root": {
+                            color: "#FFFFFF",
+                            opacity: 1,
+                            textTransform: "none",
+                            minHeight: 58,
+                            minWidth: 120,
+                            fontWeight: 500,
+                            fontSize: "0.95rem"
+                        },
+
+                        "& .Mui-selected": {
+                            color: "#FFFFFF",
+                            fontWeight: 700
+                        }
                     }}
                 >
 
                     {
                         menus.map((menu) => (
 
-                            <Button
+                            <Tab
                                 key={menu.path}
-                                startIcon={menu.icon}
+                                icon={menu.icon}
+                                iconPosition="start"
+                                label={menu.label}
+                                disableRipple
                                 onClick={() => navigate(menu.path)}
-                                sx={{
-                                    color: "#fff",
-                                    px: 2,
-                                    borderBottom:
-                                        location.pathname === menu.path
-                                            ? "3px solid #FFD54F"
-                                            : "3px solid transparent",
-                                    borderRadius: 0,
-                                    fontWeight:
-                                        location.pathname === menu.path
-                                            ? "bold"
-                                            : "normal"
-                                }}
-                            >
-                                {menu.title}
-                            </Button>
+                            />
 
                         ))
                     }
 
-                </Box>
+                </Tabs>
 
                 <Box
                     sx={{
@@ -122,16 +144,24 @@ function NavigationBar() {
                 >
 
                     <Typography
-                        variant="body2"
-                        color="white"
+                        sx={{
+                            color: "#FFFFFF",
+                            fontWeight: 500
+                        }}
                     >
-                        Welcome, {user?.fullName}
+                        {user?.fullName}
                     </Typography>
 
                     <Button
                         color="inherit"
                         startIcon={<Logout />}
                         onClick={handleLogout}
+                        sx={{
+                            textTransform: "none",
+                            fontWeight: 600,
+                            borderRadius: 2,
+                            px: 2
+                        }}
                     >
                         Logout
                     </Button>
