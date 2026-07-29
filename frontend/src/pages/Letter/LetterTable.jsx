@@ -25,7 +25,8 @@ import {
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import letterService from "../../services/letterService";
 
 function LetterTable() {
@@ -90,33 +91,25 @@ function LetterTable() {
 
     const handleSearch = (event) => {
 
-        const value = event.target.value;
+        const value = event.target.value.toLowerCase();
 
-        setSearch(value);
+        setSearch(event.target.value);
 
         const filtered = letters.filter((letter) =>
 
-            letter.letterNumber
-                ?.toLowerCase()
-                .includes(value.toLowerCase())
+            letter.letterNumber?.toLowerCase().includes(value) ||
 
-            ||
+            letter.departmentName?.toLowerCase().includes(value) ||
 
-            letter.subject
-                ?.toLowerCase()
-                .includes(value.toLowerCase())
+            letter.subject?.toLowerCase().includes(value) ||
 
-            ||
+            letter.description?.toLowerCase().includes(value) ||
 
-            letter.departmentName
-                ?.toLowerCase()
-                .includes(value.toLowerCase())
+            letter.remarks?.toLowerCase().includes(value) ||
 
-            ||
+            letter.uploadedBy?.toLowerCase().includes(value) ||
 
-            letter.uploadedBy
-                ?.toLowerCase()
-                .includes(value.toLowerCase())
+            letter.letterDate?.toString().includes(value)
 
         );
 
@@ -143,13 +136,10 @@ function LetterTable() {
     };
 
     const handleDownload = (fileName) => {
-
+        console.log("Downloading:", fileName);
         window.open(
-
-            `http://localhost:8080/uploads/${fileName}`,
-
+            `http://localhost:8080/api/letters/download/${encodeURIComponent(fileName)}`,
             "_blank"
-
         );
 
     };
@@ -223,7 +213,7 @@ function LetterTable() {
 
                     fullWidth
 
-                    placeholder="Search Letter Number, Subject, Department..."
+                    placeholder="Search by Letter No., Date, Department, Subject, Description, Remarks or Uploaded By"
 
                     value={search}
 
@@ -340,44 +330,34 @@ function LetterTable() {
 
                                                         </TableCell>
 
-                                                        <TableCell>
-
-                                                            {letter.uploadedBy}
-
+                                                        <TableCell
+                                                            sx={{
+                                                                maxWidth: 250,
+                                                                whiteSpace: "nowrap",
+                                                                overflow: "hidden",
+                                                                textOverflow: "ellipsis"
+                                                            }}
+                                                        >
+                                                            {letter.description}
                                                         </TableCell>
 
                                                         <TableCell align="center">
-
                                                             {
-
                                                                 letter.attachment ?
-
                                                                     <IconButton
-
                                                                         color="primary"
-
                                                                         onClick={() =>
-                                                                            handleDownload(
-                                                                                letter.attachment
-                                                                            )
+                                                                            handleDownload(letter.attachment)
                                                                         }
-
+                                                                        title="Download Attachment"
                                                                     >
-
                                                                         <Download />
-
                                                                     </IconButton>
-
                                                                     :
-
                                                                     "-"
-
                                                             }
-
                                                         </TableCell>
-
                                                     </TableRow>
-
                                                 ))
 
                                     }

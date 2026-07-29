@@ -41,6 +41,8 @@ function DashboardPage() {
                 Welcome to the C-DAC IGIMS Correspondence Management System
             </Typography>
 
+
+
             <Paper
                 elevation={1}
                 sx={{
@@ -53,6 +55,8 @@ function DashboardPage() {
                     container
                     spacing={2.5}
                 >
+
+
 
                     {/* LEFT SECTION */}
 
@@ -243,7 +247,10 @@ function DashboardPage() {
 
                 </Box>
 
+
+
             </Paper>
+
 
         </DashboardLayout>
 

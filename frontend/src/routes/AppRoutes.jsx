@@ -12,6 +12,7 @@ import ForgotPasswordPage from "../pages/Login/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/Login/ResetPasswordPage.jsx"
 import LetterTable from "../pages/Letter/LetterTable.jsx";
 import LetterListPage from "../pages/Letter/LetterListPage";
+import ReportPage from "../pages/Report/ReportPage.jsx";
 
 function AppRoutes() {
 
@@ -41,11 +42,21 @@ function AppRoutes() {
                     path="/letters/add"
                     element={<AddLetterPage />}
                 />
-                {/* create user Module */}
+
+                <Route
+                    path="/letters"
+                    element={<LetterListPage />}
+                />
+
+                {/* User Module */}
+
                 <Route
                     path="/users/add"
                     element={<CreateUserPage />}
                 />
+
+                {/* Password */}
+
                 <Route
                     path="/forgot-password"
                     element={<ForgotPasswordPage />}
@@ -56,9 +67,11 @@ function AppRoutes() {
                     element={<ResetPasswordPage />}
                 />
 
+                {/* Reports */}
+
                 <Route
-                    path="/letters"
-                    element={<LetterListPage />}
+                    path="/reports"
+                    element={<ReportPage />}
                 />
 
             </Routes>

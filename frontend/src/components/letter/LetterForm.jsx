@@ -13,7 +13,10 @@ import {
     MenuItem,
     Button
 } from "@mui/material";
-
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import {
     Description,
     CloudUpload
@@ -252,17 +255,35 @@ function LetterForm() {
 
                 <Grid size={{ xs: 12, md: 4 }}>
 
-                    <TextField
-                        fullWidth
-                        required
-                        type="date"
-                        name="letterDate"
-                        value={formData.letterDate}
-                        onChange={handleChange}
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            format="DD/MM/YYYY"
+                            value={
+                                formData.letterDate
+                                    ? dayjs(formData.letterDate)
+                                    : null
+                            }
+                            onChange={(newValue) => {
+
+                                setFormData({
+
+                                    ...formData,
+
+                                    letterDate: newValue
+                                        ? newValue.format("YYYY-MM-DD")
+                                        : ""
+
+                                });
+
+                            }}
+                            slotProps={{
+                                textField: {
+                                    fullWidth: true,
+                                    required: true
+                                }
+                            }}
+                        />
+                    </LocalizationProvider>
 
                 </Grid>
 
