@@ -1,4 +1,5 @@
 import { useState } from "react";
+import letterService from "../../services/letterService";
 
 import {
     Box,
@@ -19,8 +20,6 @@ import {
 } from "@mui/icons-material";
 
 function LetterForm() {
-
-    const user = JSON.parse(localStorage.getItem("user"));
 
     const [formData, setFormData] = useState({
 
@@ -117,25 +116,72 @@ function LetterForm() {
 
         }
 
-        setLoading(true);
+        try {
 
-        const payload = {
+            setLoading(true);
 
-            ...formData,
+            const data = new FormData();
 
-            uploadedBy: user.username
+            data.append(
+                "letterNumber",
+                formData.letterNumber
+            );
 
-        };
+            data.append(
+                "letterDate",
+                formData.letterDate
+            );
 
-        console.log(payload);
+            data.append(
+                "departmentName",
+                formData.department
+            );
 
-        console.log(selectedFile);
+            data.append(
+                "subject",
+                formData.subject
+            );
 
-        setTimeout(() => {
+            data.append(
+                "description",
+                formData.description
+            );
+
+            data.append(
+                "remarks",
+                formData.remarks
+            );
+
+            data.append(
+                "attachment",
+                selectedFile
+            );
+
+            const response = await letterService.saveLetter(data);
+
+            if (response.success) {
+
+                alert(response.message);
+
+                handleReset();
+
+            } else {
+
+                alert(response.message);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Unable to save letter.");
+
+        } finally {
 
             setLoading(false);
 
-        }, 1000);
+        }
 
     };
 
