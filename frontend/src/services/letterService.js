@@ -23,9 +23,18 @@ const saveLetter = async (formData) => {
 
 };
 
+const getAllLetters = async () => {
+
+    const response = await axiosClient.get("/letters");
+
+    return response.data;
+
+};
+
 const letterService = {
 
-    saveLetter
+    saveLetter,
+    getAllLetters
 
 };
 

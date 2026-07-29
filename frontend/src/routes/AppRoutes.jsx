@@ -10,6 +10,8 @@ import AddLetterPage from "../pages/Letter/AddLetterPage";
 import CreateUserPage from "../pages/Users/CreateUserPage";
 import ForgotPasswordPage from "../pages/Login/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/Login/ResetPasswordPage.jsx"
+import LetterTable from "../pages/Letter/LetterTable.jsx";
+import LetterListPage from "../pages/Letter/LetterListPage";
 
 function AppRoutes() {
 
@@ -52,6 +54,11 @@ function AppRoutes() {
                 <Route
                     path="/reset-password"
                     element={<ResetPasswordPage />}
+                />
+
+                <Route
+                    path="/letters"
+                    element={<LetterListPage />}
                 />
 
             </Routes>
