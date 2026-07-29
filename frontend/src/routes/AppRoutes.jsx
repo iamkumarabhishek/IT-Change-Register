@@ -9,6 +9,7 @@ import DashboardPage from "../pages/Dashboard/DashboardPage";
 import AddLetterPage from "../pages/Letter/AddLetterPage";
 import CreateUserPage from "../pages/Users/CreateUserPage";
 import ForgotPasswordPage from "../pages/Login/ForgotPasswordPage";
+import ResetPasswordPage from "../pages/Login/ResetPasswordPage.jsx"
 
 function AppRoutes() {
 
@@ -46,6 +47,11 @@ function AppRoutes() {
                 <Route
                     path="/forgot-password"
                     element={<ForgotPasswordPage />}
+                />
+
+                <Route
+                    path="/reset-password"
+                    element={<ResetPasswordPage />}
                 />
 
             </Routes>

@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 import authService from "../../services/authService";
 import AuthLayout from "../../layouts/AuthLayout";
+import {toast} from "react-toastify";
 
 function LoginPage() {
 
@@ -42,15 +43,27 @@ function LoginPage() {
 
     const handleLogin = async () => {
 
+        if (!formData.username.trim()) {
+            toast.error("Please enter Username.");
+            return;
+        }
+
+        if (!formData.password.trim()) {
+            toast.error("Please enter Password.");
+            return;
+        }
+
         try {
 
             setLoading(true);
 
             const response = await authService.login(formData);
 
+
+
             if (response.success) {
 
-                localStorage.setItem(
+                sessionStorage.setItem(
                     "user",
                     JSON.stringify(response.data)
                 );
@@ -66,7 +79,7 @@ function LoginPage() {
         } catch (error) {
 
             console.error(error);
-            alert("Unable to connect to server.");
+            toast.error("Unable to connect to server.");
 
         } finally {
 

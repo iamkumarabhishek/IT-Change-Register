@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import userService from "../../services/userService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
     Box,
@@ -83,7 +86,7 @@ function UserForm() {
             !formData.designation
         ) {
 
-            alert("Please fill all required fields.");
+            toast.error("Please fill all required fields.");
             return;
 
         }
@@ -93,7 +96,7 @@ function UserForm() {
 
         if (!emailPattern.test(formData.email.trim())) {
 
-            alert("Please enter a valid email address.");
+            toast.error("Please enter a valid email address.");
 
             return;
 
@@ -101,21 +104,21 @@ function UserForm() {
 
         if (formData.password.length < 6 || formData.password.length > 20) {
 
-            alert("Password must be between 6 and 20 characters.");
+            toast.error("Password must be between 6 and 20 characters.");
             return;
 
         }
 
         if (formData.password !== formData.confirmPassword) {
 
-            alert("Password and Confirm Password do not match.");
+            toast.error("Password and Confirm Password do not match.");
             return;
 
         }
 
         if (!/^[6-9][0-9]{9}$/.test(formData.mobile)) {
 
-            alert("Please enter a valid 10-digit mobile number.");
+            toast.error("Please enter a valid 10-digit mobile number.");
 
             return;
 
@@ -123,20 +126,37 @@ function UserForm() {
 
         setLoading(true);
 
-        console.log({
-            ...formData,
-            status: "ACTIVE"
-        });
+        try {
 
-        setTimeout(() => {
+            const payload = {
+                username: formData.userId,
+                fullName: formData.fullName,
+                password: formData.password,
+                confirmPassword: formData.confirmPassword,
+                email: formData.email,
+                mobileNumber: formData.mobile
+            };
+
+            const response = await userService.createUser(payload);
+
+            alert(response.message);
+
+            navigate("/");
+
+        } catch (error) {
+
+            if (error.response?.data?.message) {
+                alert(error.response.data.message);
+            } else {
+                toast.error("Unable to connect to the server.");
+                console.error(error);
+            }
+
+        } finally {
 
             setLoading(false);
 
-            alert("User created successfully.");
-
-            navigate("/login");   // Change this if your login route is different
-
-        }, 1000);
+        }
 
     };
 
