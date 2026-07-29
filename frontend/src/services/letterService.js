@@ -6,17 +6,14 @@ const saveLetter = async (formData) => {
 
     const response = await axiosClient.post(
 
-        "/letters",
+        "/letters/save",
 
         formData,
 
         {
             headers: {
-
                 "Content-Type": "multipart/form-data",
-
                 username: user.username
-
             }
         }
 

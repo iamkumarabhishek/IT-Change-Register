@@ -122,6 +122,13 @@ function LetterForm() {
 
             const data = new FormData();
 
+            const user = JSON.parse(sessionStorage.getItem("user"));
+
+            data.append(
+                "uploadedBy",
+                user.username
+            );
+
             data.append(
                 "letterNumber",
                 formData.letterNumber
@@ -171,13 +178,20 @@ function LetterForm() {
 
             }
 
-        } catch (error) {
+        }
+        catch (error) {
 
             console.error(error);
 
-            alert("Unable to save letter.");
+            console.log("Status:", error.response?.status);
+            console.log("Data:", error.response?.data);
 
-        } finally {
+            alert(
+                JSON.stringify(error.response?.data, null, 2)
+            );
+
+        }
+        finally {
 
             setLoading(false);
 
