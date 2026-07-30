@@ -17,16 +17,6 @@ public class AuthController {
     }
 
     // =========================
-    // REGISTER
-    // =========================
-    @PostMapping("/register")
-    public ApiResponse<Object> registerUser(
-            @Valid @RequestBody UserRegistrationRequest request) {
-
-        return authService.registerUser(request);
-    }
-
-    // =========================
     // LOGIN
     // =========================
     @PostMapping("/login")
@@ -55,6 +45,17 @@ public class AuthController {
 
         return authService.forgotPassword(request);
     }
+
+    // =========================
+    // RESET PASSWORD
+    // =========================
+        @PostMapping("/reset-password")
+        public ApiResponse<Object> resetPassword(
+                @Valid @RequestBody ResetPasswordRequest request) {
+
+            return authService.resetPassword(request);
+
+        }
 
     // =========================
     // LOGOUT

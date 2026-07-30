@@ -15,14 +15,13 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "fullName": "Test User",
-  "username": "test001",
-  "email": "test@gmail.com",
-  "mobileNumber": "9876543211",
-  "password": "password123",
-  "confirmPassword": "password123"
+  "username": "raju",
+  "fullName": "raju sharma",
+  "password": "Password@123",
+  "confirmPassword": "Password@123",
+  "email": "raju@test.com",
+  "mobileNumber": "9276543210"
 }
-
 ###
 
 ### Login
@@ -86,7 +85,7 @@ GET http://localhost:8080/api/users/pending
 ###
 
 ### Approve User
-PUT http://localhost:8080/api/users/1/approve
+PUT http://localhost:8080/api/users/4/approve
 
 ###
 

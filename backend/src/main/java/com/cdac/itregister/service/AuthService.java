@@ -203,4 +203,43 @@ public class AuthService {
                 .message("Password reset request accepted. OTP/Email functionality will be implemented in the next phase.")
                 .build();
     }
+
+    //RESET PASSWORD
+
+    public ApiResponse<Object> resetPassword(ResetPasswordRequest request) {
+
+        Optional<User> optionalUser =
+                userRepository.findByUsername(request.getUsername());
+
+        if (optionalUser.isEmpty()) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("User not found.")
+                    .build();
+
+        }
+
+        if (!request.getNewPassword()
+                .equals(request.getConfirmPassword())) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("Password and Confirm Password do not match.")
+                    .build();
+
+        }
+
+        User user = optionalUser.get();
+
+        user.setPassword(request.getNewPassword());
+
+        userRepository.save(user);
+
+        return ApiResponse.builder()
+                .success(true)
+                .message("Password updated successfully.")
+                .build();
+
+    }
 }

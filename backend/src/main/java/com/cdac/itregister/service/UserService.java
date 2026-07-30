@@ -1,7 +1,6 @@
 package com.cdac.itregister.service;
 
-import com.cdac.itregister.dto.ApiResponse;
-import com.cdac.itregister.dto.PendingUserResponse;
+import com.cdac.itregister.dto.*;
 import com.cdac.itregister.entity.User;
 import com.cdac.itregister.enums.UserStatus;
 import com.cdac.itregister.repository.UserRepository;
@@ -14,6 +13,8 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+
+
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -64,4 +65,147 @@ public class UserService {
                 .message("User approved successfully.")
                 .build();
     }
+
+    public ApiResponse<Object> registerUser(UserRegistrationRequest request) {
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("Password and Confirm Password do not match.")
+                    .build();
+
+        }
+
+        if (userRepository.existsByUsername(request.getUsername())) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("Username already exists.")
+                    .build();
+
+        }
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("Email already exists.")
+                    .build();
+
+        }
+
+        if (userRepository.existsByMobileNumber(request.getMobileNumber())) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("Mobile Number already exists.")
+                    .build();
+
+        }
+
+        User user = User.builder()
+                .username(request.getUsername())
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .mobileNumber(request.getMobileNumber())
+                .password(request.getPassword())     // BCrypt later
+                .createdBy(request.getUsername())
+                .build();
+
+        userRepository.save(user);
+
+        return ApiResponse.builder()
+                .success(true)
+                .message("Registration submitted successfully. Please wait for administrator approval.")
+                .build();
+
+    }
+    public ApiResponse<?> getProfile(String username) {
+
+        User user = userRepository.findByUsername(username).orElse(null);
+
+        if (user == null) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("User not found.")
+                    .build();
+
+        }
+
+        UserProfileResponse profile = UserProfileResponse.builder()
+
+                .id(user.getId())
+
+                .fullName(user.getFullName())
+
+                .username(user.getUsername())
+
+                .email(user.getEmail())
+
+                .mobileNumber(user.getMobileNumber())
+
+                .role(user.getRole())
+
+                .status(user.getStatus())
+
+                .createdAt(user.getCreatedAt())
+
+                .createdBy(user.getCreatedBy())
+
+                .approvedAt(user.getApprovedAt())
+
+                .approvedBy(user.getApprovedBy())
+
+                .emailVerified(user.isEmailVerified())
+
+                .build();
+
+        return ApiResponse.builder()
+
+                .success(true)
+
+                .message("Profile fetched successfully.")
+
+                .data(profile)
+
+                .build();
+
+    }
+
+    public ApiResponse<?> updateProfile(UpdateProfileRequest request) {
+
+        User user = userRepository.findById(request.getId()).orElse(null);
+
+        if (user == null) {
+
+            return ApiResponse.builder()
+                    .success(false)
+                    .message("User not found.")
+                    .build();
+
+        }
+
+        user.setFullName(request.getFullName());
+
+        user.setEmail(request.getEmail());
+
+        user.setMobileNumber(request.getMobileNumber());
+
+        userRepository.save(user);
+
+        return ApiResponse.builder()
+
+                .success(true)
+
+                .message("Profile updated successfully.")
+
+                .data(user)
+
+                .build();
+
+    }
+
+
 }
