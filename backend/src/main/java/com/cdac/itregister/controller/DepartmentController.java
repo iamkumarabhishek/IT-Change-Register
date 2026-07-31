@@ -43,4 +43,11 @@ public class DepartmentController {
 
     }
 
+    @GetMapping("/list")
+    public ApiResponse<?> getAllDepartments() {
+
+        return departmentService.getAllDepartments();
+
+    }
+
 }

@@ -66,4 +66,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
+    @Override
+    public ApiResponse<?> getAllDepartments() {
+
+        return ApiResponse.builder()
+                .success(true)
+                .data(departmentRepository.findAll())
+                .build();
+
+    }
+
 }

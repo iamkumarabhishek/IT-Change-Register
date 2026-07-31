@@ -10,5 +10,6 @@ public interface DepartmentService {
     ApiResponse<?> getDepartments();
 
     ApiResponse<?> getActiveDepartments();
+    ApiResponse<?> getAllDepartments();
 
 }
