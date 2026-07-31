@@ -18,6 +18,14 @@ const departmentService = {
 
     },
 
+    getAllDepartments: async () => {
+
+        const response = await axiosClient.get("/departments/list");
+
+        return response.data;
+
+    },
+
     saveDepartment: async (department) => {
 
         const response = await axiosClient.post(

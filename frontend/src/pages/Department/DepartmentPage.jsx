@@ -5,8 +5,12 @@ import {
     CardContent,
     TextField,
     Typography,
-    Divider
+    Divider,
+    Chip
 } from "@mui/material";
+
+import { useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid";
 import SuccessDialog from "../../components/common/SuccessDialog";
 import { useState } from "react";
 import ErrorDialog from "../../components/common/ErrorDialog";
@@ -21,6 +25,54 @@ function DepartmentPage() {
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [departments, setDepartments] = useState([]);
+    const columns = [
+
+        {
+            field: "id",
+            headerName: "Sl.",
+            width: 80
+        },
+
+        {
+            field: "departmentName",
+            headerName: "Department Name",
+            flex: 1
+        },
+
+        {
+            field: "status",
+            headerName: "Status",
+            width: 140,
+
+            renderCell: (params) => (
+
+                <Chip
+                    label={
+                        params.value === "ACTIVE"
+                            ? "Active"
+                            : "Inactive"
+                    }
+
+                    color={
+                        params.value === "ACTIVE"
+                            ? "success"
+                            : "error"
+                    }
+
+                    size="small"
+
+                    sx={{
+                        fontWeight: "bold",
+                        minWidth: 90
+                    }}
+                />
+
+            )
+
+        }
+
+    ];
 
     const handleSave = async () => {
 
@@ -60,8 +112,6 @@ function DepartmentPage() {
 
         setDepartmentName("");
 
-        setStatus("ACTIVE");
-
     };
 
     const handleErrorOk = () => {
@@ -74,8 +124,41 @@ function DepartmentPage() {
         setOpenSuccessDialog(false);
 
         handleReset();
+        loadDepartments();
 
     };
+
+
+
+    const loadDepartments = async () => {
+
+        try {
+
+            const response =
+                await departmentService.getAllDepartments();
+            console.log(response.data);
+            if (response.success) {
+
+                setDepartments(response.data);
+                console.log(response);
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    useEffect(() => {
+
+        loadDepartments();
+
+    }, []);
 
     return (
 
@@ -179,6 +262,54 @@ function DepartmentPage() {
                 </CardContent>
 
             </Card>
+
+            <Card
+                sx={{
+                    mt: 3
+                }}
+            >
+
+                <CardContent>
+
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        gutterBottom
+                    >
+
+                        Department List
+
+                    </Typography>
+
+                    <Divider sx={{ mb: 2 }} />
+
+                    <DataGrid
+
+                        rows={departments}
+
+                        columns={columns}
+
+                        initialState={{
+                            pagination: {
+                                paginationModel: {
+                                    page: 0,
+                                    pageSize: 10
+                                }
+                            }
+                        }}
+
+                        pageSizeOptions={[10, 25, 50, 100]}
+
+                        disableRowSelectionOnClick
+
+                        autoHeight
+
+                    />
+
+                </CardContent>
+
+            </Card>
+
             <SuccessDialog
                 open={openSuccessDialog}
                 title="Department Added"
