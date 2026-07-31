@@ -204,7 +204,9 @@ function LoginPage() {
 
             <Divider sx={{ my: 3 }} />
 
-            <Box textAlign="center">
+            <Box sx={{
+                textAlign: "center"
+            }}>
 
                 <Typography
                     variant="body2"

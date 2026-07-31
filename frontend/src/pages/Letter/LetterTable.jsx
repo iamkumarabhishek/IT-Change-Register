@@ -227,7 +227,7 @@ function LetterTable() {
                     loading ?
 
                         <Box
-                            textAlign="center"
+                            textalign="center"
                             py={5}
                         >
 

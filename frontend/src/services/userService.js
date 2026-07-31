@@ -11,6 +11,17 @@ const userService = {
 
         return response.data;
 
+    },
+
+    updateProfile: async (userData) => {
+
+        const response = await axiosClient.put(
+            "/users/profile",
+            userData
+        );
+
+        return response.data;
+
     }
 
 };

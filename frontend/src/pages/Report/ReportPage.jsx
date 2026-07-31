@@ -54,9 +54,9 @@ function ReportPage() {
 
     const [toDate, setToDate] = useState("");
 
-    const [department, setDepartment] = useState("");
+    const [department, setDepartment] = useState("All");
 
-    const [uploadedBy, setUploadedBy] = useState("");
+    const [uploadedBy, setUploadedBy] = useState("All");
 
     const [letterNumber, setLetterNumber] = useState("");
 
@@ -91,9 +91,11 @@ function ReportPage() {
 
                 ].filter(Boolean).sort();
 
-                setDepartments(uniqueDepartments);
+                setDepartments(["All", ...uniqueDepartments]);
 
                 const uniqueUsers = [
+
+                    "All",
 
                     ...new Set(
 
@@ -155,7 +157,7 @@ function ReportPage() {
 
         }
 
-        if (department) {
+        if (department && department !== "All") {
 
             filtered = filtered.filter(letter =>
 
@@ -165,7 +167,7 @@ function ReportPage() {
 
         }
 
-        if (uploadedBy) {
+        if (uploadedBy && uploadedBy !== "All") {
 
             filtered = filtered.filter(letter =>
 
@@ -209,9 +211,9 @@ function ReportPage() {
 
         setToDate("");
 
-        setDepartment("");
+        setDepartment("All");
 
-        setUploadedBy("");
+        setUploadedBy("All");
 
         setLetterNumber("");
 
@@ -220,6 +222,18 @@ function ReportPage() {
         setSearched(false);
 
         setPage(0);
+
+    };
+
+    const handleExportExcel = () => {
+
+        reportService.exportExcel();
+
+    };
+
+    const handleExportPdf = () => {
+
+        reportService.exportPdf();
 
     };
 
@@ -365,7 +379,7 @@ function ReportPage() {
 
                             onChange={(event, value) =>
 
-                                setUploadedBy(value || "")
+                                setUploadedBy(value || "All")
 
                             }
 
@@ -404,12 +418,14 @@ function ReportPage() {
                             sx={{ mb: 4 }}
 
                         />
-
                         <Box
-                            display="flex"
-                            justifyContent="center"
-                            gap={2}
+                            sx={{
+                                display:"flex",
+                                justifyContent: "center"
+
+                            }}
                         >
+
 
                             <Button
 
@@ -445,7 +461,9 @@ function ReportPage() {
                     {
                         loading ? (
 
-                            <Box textAlign="center" py={5}>
+                            <Box sx={{
+                                textAlign: "center"
+                            }} py={5}>
                                 <CircularProgress />
                             </Box>
 
@@ -483,13 +501,16 @@ function ReportPage() {
                                     >
 
                                         <Button
-                                            variant="outlined"
+                                            variant="contained"
+                                            color="success"
+                                            onClick={handleExportExcel}
                                         >
                                             Export Excel
                                         </Button>
 
                                         <Button
                                             variant="contained"
+                                            onClick={handleExportPdf}
                                         >
                                             Export PDF
                                         </Button>

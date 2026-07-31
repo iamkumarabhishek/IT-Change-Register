@@ -25,7 +25,7 @@ function DashboardHeader() {
                     width="65"
                 />
 
-                <Box textAlign="center">
+                <Box textalign="center">
 
                     <Typography
                         variant="h4"

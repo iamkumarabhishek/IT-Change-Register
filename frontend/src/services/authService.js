@@ -44,7 +44,23 @@ const authService = {
 
         return response.data;
 
-    }
+    },
+
+    changePassword: async (passwordData) => {
+
+        const response = await axiosClient.put(
+
+            "/auth/change-password",
+
+            passwordData
+
+        );
+
+        return response.data;
+
+    },
+
+
 
 };
 

@@ -34,7 +34,7 @@ function Header() {
                     }}
                 />
 
-                <Box textAlign="center">
+                <Box textalign="center">
 
                     <Typography
                         variant="h4"

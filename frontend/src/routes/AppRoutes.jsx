@@ -13,6 +13,7 @@ import ResetPasswordPage from "../pages/Login/ResetPasswordPage.jsx"
 import LetterTable from "../pages/Letter/LetterTable.jsx";
 import LetterListPage from "../pages/Letter/LetterListPage";
 import ReportPage from "../pages/Report/ReportPage.jsx";
+import ProfilePage from "../pages/Profile/ProfilePage.jsx";
 
 function AppRoutes() {
 
@@ -74,9 +75,18 @@ function AppRoutes() {
                     element={<ReportPage />}
                 />
 
+                <Route
+                    path="/profile"
+                    element={<ProfilePage />}
+                />
+
             </Routes>
 
+
+
         </BrowserRouter>
+
+
 
     );
 
