@@ -28,9 +28,11 @@ public class DepartmentServiceImpl implements DepartmentService {
                     .build();
 
         }
-
+        department.setStatus("ACTIVE");
         Department savedDepartment =
                 departmentRepository.save(department);
+
+
 
         return ApiResponse.builder()
                 .success(true)
