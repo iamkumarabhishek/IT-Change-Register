@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import letterService from "../../services/letterService";
-
+import departmentService from "../../services/departmentService";
 import {
     Box,
     Grid,
@@ -39,16 +39,37 @@ function LetterForm() {
 
     const [loading, setLoading] = useState(false);
 
-    const departments = [
+    const [departments, setDepartments] = useState([]);
 
-        "Administration",
-        "Accounts",
-        "IT Cell",
-        "Biochemistry",
-        "Pathology",
-        "Radiology"
+    useEffect(() => {
 
-    ];
+        loadDepartments();
+
+    }, []);
+
+    const loadDepartments = async () => {
+
+        try {
+
+            const response =
+                await departmentService.getActiveDepartments();
+
+            if (response.success) {
+
+                setDepartments(response.data);
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
 
     const handleChange = (event) => {
 
@@ -310,10 +331,10 @@ function LetterForm() {
                                 departments.map((department) => (
 
                                     <MenuItem
-                                        key={department}
-                                        value={department}
+                                        key={department.id}
+                                        value={department.departmentName}
                                     >
-                                        {department}
+                                        {department.departmentName}
                                     </MenuItem>
 
                                 ))

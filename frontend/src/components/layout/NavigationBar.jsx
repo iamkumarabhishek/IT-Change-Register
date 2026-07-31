@@ -7,6 +7,16 @@ import {
     Button,
     Typography
 } from "@mui/material";
+import {
+    Menu,
+    MenuItem
+} from "@mui/material";
+
+import {
+    Settings,
+    Apartment
+} from "@mui/icons-material";
+import { useState } from "react";
 
 import {
     Dashboard,
@@ -28,6 +38,7 @@ function NavigationBar() {
     const location = useLocation();
 
     const user = JSON.parse(localStorage.getItem("user"));
+    const [setupAnchor, setSetupAnchor] = useState(null);
 
     const menus = [
         {
@@ -46,15 +57,16 @@ function NavigationBar() {
             path: "/letters"
         },
         {
-            label: "Users",
-            icon: <Group />,
-            path: "/users/add"
-        },
-        {
             label: "Reports",
             icon: <Assessment />,
             path: "/reports"
         },
+        {
+            label: "Setup",
+            icon: <Settings />,
+            path: "/setup"
+        },
+
         {
             label: "Profile",
             icon: <Person />,
@@ -63,13 +75,17 @@ function NavigationBar() {
     ];
 
     const currentTab = menus.findIndex(
-        (menu) => menu.path === location.pathname
+        (menu) =>
+            menu.path === location.pathname &&
+            menu.path !== "/setup"
     );
+
 
     const handleLogout = () => {
 
-        localStorage.removeItem("user");
-        navigate("/");
+        sessionStorage.clear();
+
+        navigate("/", { replace: true });
 
     };
 
@@ -127,13 +143,49 @@ function NavigationBar() {
                                 iconPosition="start"
                                 label={menu.label}
                                 disableRipple
-                                onClick={() => navigate(menu.path)}
+                                onClick={(event) => {
+
+                                    if (menu.label === "Setup") {
+
+                                        setSetupAnchor(event.currentTarget);
+
+                                    } else {
+
+                                        navigate(menu.path);
+
+                                    }
+
+                                }}
                             />
 
                         ))
                     }
 
                 </Tabs>
+
+                <Menu
+                    anchorEl={setupAnchor}
+                    open={Boolean(setupAnchor)}
+                    onClose={() => setSetupAnchor(null)}
+                >
+
+                    <MenuItem
+                        onClick={() => {
+
+                            navigate("/departments");
+
+                            setSetupAnchor(null);
+
+                        }}
+                    >
+
+                        <Apartment sx={{ mr: 1 }} />
+
+                        Department Master
+
+                    </MenuItem>
+
+                </Menu>
 
                 <Box
                     sx={{

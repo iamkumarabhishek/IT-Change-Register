@@ -4,16 +4,17 @@ import {
     Route
 } from "react-router-dom";
 
+import ProtectedRoute from "./ProtectedRoute";
+import DepartmentPage from "../pages/Department/DepartmentPage";
 import LoginPage from "../pages/Login/LoginPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import AddLetterPage from "../pages/Letter/AddLetterPage";
 import CreateUserPage from "../pages/Users/CreateUserPage";
 import ForgotPasswordPage from "../pages/Login/ForgotPasswordPage";
-import ResetPasswordPage from "../pages/Login/ResetPasswordPage.jsx"
-import LetterTable from "../pages/Letter/LetterTable.jsx";
+import ResetPasswordPage from "../pages/Login/ResetPasswordPage";
 import LetterListPage from "../pages/Letter/LetterListPage";
-import ReportPage from "../pages/Report/ReportPage.jsx";
-import ProfilePage from "../pages/Profile/ProfilePage.jsx";
+import ReportPage from "../pages/Report/ReportPage";
+import ProfilePage from "../pages/Profile/ProfilePage";
 
 function AppRoutes() {
 
@@ -30,34 +31,6 @@ function AppRoutes() {
                     element={<LoginPage />}
                 />
 
-                {/* Dashboard */}
-
-                <Route
-                    path="/dashboard"
-                    element={<DashboardPage />}
-                />
-
-                {/* Letter Module */}
-
-                <Route
-                    path="/letters/add"
-                    element={<AddLetterPage />}
-                />
-
-                <Route
-                    path="/letters"
-                    element={<LetterListPage />}
-                />
-
-                {/* User Module */}
-
-                <Route
-                    path="/users/add"
-                    element={<CreateUserPage />}
-                />
-
-                {/* Password */}
-
                 <Route
                     path="/forgot-password"
                     element={<ForgotPasswordPage />}
@@ -68,25 +41,85 @@ function AppRoutes() {
                     element={<ResetPasswordPage />}
                 />
 
+                {/* Dashboard */}
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <DashboardPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* Letter Module */}
+
+                <Route
+                    path="/letters/add"
+                    element={
+                        <ProtectedRoute>
+                            <AddLetterPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/letters"
+                    element={
+                        <ProtectedRoute>
+                            <LetterListPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* User Module */}
+
+                <Route
+                    path="/users/add"
+                    element={
+                            <CreateUserPage />
+                    }
+                />
+
                 {/* Reports */}
 
                 <Route
                     path="/reports"
-                    element={<ReportPage />}
+                    element={
+                        <ProtectedRoute>
+                            <ReportPage />
+                        </ProtectedRoute>
+                    }
                 />
+
+                {/* Profile */}
 
                 <Route
                     path="/profile"
-                    element={<ProfilePage />}
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/departments"
+                    element={
+                        <ProtectedRoute>
+                            <DepartmentPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/departments"
+                    element={<DepartmentPage />}
                 />
 
             </Routes>
 
-
-
         </BrowserRouter>
-
-
 
     );
 
