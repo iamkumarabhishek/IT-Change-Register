@@ -3,57 +3,46 @@ import {
     Button,
     Card,
     CardContent,
-    Radio,
-    RadioGroup,
-    FormControlLabel,
     TextField,
     Typography,
     Divider
 } from "@mui/material";
-
+import SuccessDialog from "../../components/common/SuccessDialog";
 import { useState } from "react";
+import ErrorDialog from "../../components/common/ErrorDialog";
+import { useNavigate } from "react-router-dom";
 import departmentService from "../../services/departmentService";
-import { toast } from "react-toastify";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 function DepartmentPage() {
 
     const [departmentName, setDepartmentName] = useState("");
-
-    const [status, setStatus] = useState("ACTIVE");
+    const navigate = useNavigate();
+    const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSave = async () => {
-
-        if (!departmentName.trim()) {
-
-            toast.error("Department Name is required.");
-
-            return;
-
-        }
 
         try {
 
             const response =
                 await departmentService.saveDepartment({
 
-                    departmentName,
-
-                    status
+                    departmentName: departmentName
 
                 });
-
+            console.log(response);
             if (response.success) {
 
-                toast.success(response.message);
-
-                handleReset();
+                setOpenSuccessDialog(true);
 
             }
-
             else {
 
-                toast.error(response.message);
+                setErrorMessage(response.message);
+
+                setOpenErrorDialog(true);
 
             }
 
@@ -62,8 +51,6 @@ function DepartmentPage() {
         catch (error) {
 
             console.error(error);
-
-            toast.error("Unable to save department.");
 
         }
 
@@ -74,6 +61,19 @@ function DepartmentPage() {
         setDepartmentName("");
 
         setStatus("ACTIVE");
+
+    };
+
+    const handleErrorOk = () => {
+
+        setOpenErrorDialog(false);
+
+    };
+    const handleSuccessOk = () => {
+
+        setOpenSuccessDialog(false);
+
+        handleReset();
 
     };
 
@@ -125,51 +125,8 @@ function DepartmentPage() {
 
                     />
 
-                    <Typography
-                        fontWeight="bold"
-                        mt={3}
-                        mb={1}
-                    >
+                    <typography mb={1}> .</typography>
 
-                        Status
-
-                    </Typography>
-
-                    <RadioGroup
-
-                        row
-
-                        value={status}
-
-                        onChange={(event) =>
-
-                            setStatus(event.target.value)
-
-                        }
-
-                    >
-
-                        <FormControlLabel
-
-                            value="ACTIVE"
-
-                            control={<Radio />}
-
-                            label="Active"
-
-                        />
-
-                        <FormControlLabel
-
-                            value="INACTIVE"
-
-                            control={<Radio />}
-
-                            label="Inactive"
-
-                        />
-
-                    </RadioGroup>
 
                     <Box
 
@@ -177,9 +134,9 @@ function DepartmentPage() {
 
                         justifyContent="center"
 
-                        gap={2}
+                        gap={5}
 
-                        mt={4}
+                        mt={6}
 
                     >
 
@@ -209,12 +166,31 @@ function DepartmentPage() {
 
                         </Button>
 
+                        <Button
+                            variant="outlined"
+                            color="inherit"
+                            onClick={() => navigate("/setup")}
+                        >
+                            Cancel
+                        </Button>
+
                     </Box>
 
                 </CardContent>
 
             </Card>
-
+            <SuccessDialog
+                open={openSuccessDialog}
+                title="Department Added"
+                message="Department has been added successfully."
+                onOk={handleSuccessOk}
+            />
+            <ErrorDialog
+                open={openErrorDialog}
+                title="Duplicate Department"
+                message={errorMessage}
+                onOk={handleErrorOk}
+            />
         </DashboardLayout>
 
     );

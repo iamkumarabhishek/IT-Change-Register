@@ -7,15 +7,7 @@ import {
     Button,
     Typography
 } from "@mui/material";
-import {
-    Menu,
-    MenuItem
-} from "@mui/material";
-
-import {
-    Settings,
-    Apartment
-} from "@mui/icons-material";
+import Settings from "@mui/icons-material/Settings";
 import { useState } from "react";
 
 import {
@@ -38,7 +30,6 @@ function NavigationBar() {
     const location = useLocation();
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const [setupAnchor, setSetupAnchor] = useState(null);
 
     const menus = [
         {
@@ -143,19 +134,7 @@ function NavigationBar() {
                                 iconPosition="start"
                                 label={menu.label}
                                 disableRipple
-                                onClick={(event) => {
-
-                                    if (menu.label === "Setup") {
-
-                                        setSetupAnchor(event.currentTarget);
-
-                                    } else {
-
-                                        navigate(menu.path);
-
-                                    }
-
-                                }}
+                                onClick={() => navigate(menu.path)}
                             />
 
                         ))
@@ -163,29 +142,7 @@ function NavigationBar() {
 
                 </Tabs>
 
-                <Menu
-                    anchorEl={setupAnchor}
-                    open={Boolean(setupAnchor)}
-                    onClose={() => setSetupAnchor(null)}
-                >
 
-                    <MenuItem
-                        onClick={() => {
-
-                            navigate("/departments");
-
-                            setSetupAnchor(null);
-
-                        }}
-                    >
-
-                        <Apartment sx={{ mr: 1 }} />
-
-                        Department Master
-
-                    </MenuItem>
-
-                </Menu>
 
                 <Box
                     sx={{

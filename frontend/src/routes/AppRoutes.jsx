@@ -15,6 +15,7 @@ import ResetPasswordPage from "../pages/Login/ResetPasswordPage";
 import LetterListPage from "../pages/Letter/LetterListPage";
 import ReportPage from "../pages/Report/ReportPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
+import SetupPage from "../pages/Setup/SetupPage";
 
 function AppRoutes() {
 
@@ -77,7 +78,9 @@ function AppRoutes() {
                 <Route
                     path="/users/add"
                     element={
+                        <ProtectedRoute>
                             <CreateUserPage />
+                        </ProtectedRoute>
                     }
                 />
 
@@ -88,6 +91,15 @@ function AppRoutes() {
                     element={
                         <ProtectedRoute>
                             <ReportPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/setup"
+                    element={
+                        <ProtectedRoute>
+                            <SetupPage />
                         </ProtectedRoute>
                     }
                 />
@@ -112,10 +124,7 @@ function AppRoutes() {
                     }
                 />
 
-                <Route
-                    path="/departments"
-                    element={<DepartmentPage />}
-                />
+
 
             </Routes>
 
