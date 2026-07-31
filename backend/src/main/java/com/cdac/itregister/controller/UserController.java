@@ -52,9 +52,8 @@ public class UserController {
     public ApiResponse<?> updateProfile(
             @RequestBody UpdateProfileRequest request
     ) {
-
+        System.out.println(">>> CONTROLLER HIT <<<");
         return userService.updateProfile(request);
-
     }
 
 }
