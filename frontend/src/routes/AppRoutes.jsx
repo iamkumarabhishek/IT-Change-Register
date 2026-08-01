@@ -78,9 +78,7 @@ function AppRoutes() {
                 <Route
                     path="/users/add"
                     element={
-                        <ProtectedRoute>
                             <CreateUserPage />
-                        </ProtectedRoute>
                     }
                 />
 

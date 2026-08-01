@@ -18,6 +18,12 @@ import { useNavigate } from "react-router-dom";
 import departmentService from "../../services/departmentService";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
+import EditIcon from "@mui/icons-material/Edit";
+import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+
 function DepartmentPage() {
 
     const [departmentName, setDepartmentName] = useState("");
@@ -26,12 +32,24 @@ function DepartmentPage() {
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [departments, setDepartments] = useState([]);
+    const [searchText, setSearchText] = useState("");
     const columns = [
 
         {
-            field: "id",
+            field: "slNo",
             headerName: "Sl.",
-            width: 80
+            width: 80,
+            sortable: false,
+            filterable: false,
+
+            renderCell: (params) => {
+
+                return filteredDepartments.findIndex(
+                    (department) => department.id === params.row.id
+                ) + 1;
+
+            }
+
         },
 
         {
@@ -70,9 +88,60 @@ function DepartmentPage() {
 
             )
 
+        },
+
+        {
+            field: "action",
+
+            headerName: "Action",
+
+            width: 150,
+
+            renderCell: (params) => (
+
+                <Tooltip
+                    title={
+                        params.row.status === "ACTIVE"
+                            ? "Deactivate"
+                            : "Activate"
+                    }
+                >
+
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        color={
+                            params.row.status === "ACTIVE"
+                                ? "error"
+                                : "success"
+                        }
+                        onClick={() =>
+                            handleStatusChange(params.row)
+                        }
+                    >
+                        {params.row.status === "ACTIVE"
+                            ? "Deactivate"
+                            : "Activate"}
+                    </Button>
+
+                </Tooltip>
+
+            )
+
         }
 
+
     ];
+
+    const filteredDepartments = departments
+        .filter((department) =>
+            department.departmentName
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
+        )
+        .sort((a, b) =>
+            a.departmentName.localeCompare(b.departmentName)
+        );
 
     const handleSave = async () => {
 
@@ -154,11 +223,42 @@ function DepartmentPage() {
 
     };
 
+    const handleStatusChange = async (department) => {
+
+        const newStatus =
+            department.status === "ACTIVE"
+                ? "INACTIVE"
+                : "ACTIVE";
+
+        try {
+
+            const response =
+                await departmentService.updateDepartmentStatus(
+                    department.id,
+                    newStatus
+                );
+
+            if (response.success) {
+
+                loadDepartments();
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
     useEffect(() => {
 
         loadDepartments();
 
     }, []);
+
+
 
     return (
 
@@ -257,6 +357,7 @@ function DepartmentPage() {
                             Cancel
                         </Button>
 
+
                     </Box>
 
                 </CardContent>
@@ -282,10 +383,31 @@ function DepartmentPage() {
                     </Typography>
 
                     <Divider sx={{ mb: 2 }} />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            mb: 2
+                        }}
+                    >
 
+                        <TextField
+                            size="small"
+                            label="Search Department"
+                            placeholder="Type department name..."
+                            value={searchText}
+                            onChange={(event) =>
+                                setSearchText(event.target.value)
+                            }
+                            sx={{
+                                width: 300
+                            }}
+                        />
+
+                    </Box>
                     <DataGrid
 
-                        rows={departments}
+                        rows={filteredDepartments}
 
                         columns={columns}
 
@@ -304,7 +426,11 @@ function DepartmentPage() {
 
                         autoHeight
 
+
+
                     />
+
+
 
                 </CardContent>
 

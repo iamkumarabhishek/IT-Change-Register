@@ -1,5 +1,6 @@
 import axiosClient from "../api/axiosClient";
 
+
 const departmentService = {
 
     getDepartments: async () => {
@@ -35,7 +36,19 @@ const departmentService = {
 
         return response.data;
 
-    }
+    },
+
+    updateDepartmentStatus: async (id, status) => {
+
+        const response = await axiosClient.put(
+            `/departments/${id}/status?status=${status}`
+        );
+
+        return response.data;
+
+    },
+
+
 
 };
 
