@@ -85,7 +85,7 @@ GET http://localhost:8080/api/users/pending
 ###
 
 ### Approve User
-PUT http://localhost:8080/api/users/4/approve
+PUT http://localhost:8080/api/users/7/approve
 
 ###
 
