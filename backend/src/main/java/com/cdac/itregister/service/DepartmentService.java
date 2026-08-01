@@ -12,4 +12,9 @@ public interface DepartmentService {
     ApiResponse<?> getActiveDepartments();
     ApiResponse<?> getAllDepartments();
 
+    ApiResponse<?> updateDepartmentStatus(
+            Long id,
+            String status
+    );
+
 }

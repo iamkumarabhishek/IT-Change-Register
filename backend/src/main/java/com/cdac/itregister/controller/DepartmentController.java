@@ -50,4 +50,24 @@ public class DepartmentController {
 
     }
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<?>> updateDepartmentStatus(
+
+            @PathVariable Long id,
+
+            @RequestParam String status
+
+    ) {
+
+        return ResponseEntity.ok(
+
+                departmentService.updateDepartmentStatus(
+                        id,
+                        status
+                )
+
+        );
+
+    }
+
 }

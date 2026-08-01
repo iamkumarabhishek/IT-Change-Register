@@ -76,4 +76,28 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
+    @Override
+    public ApiResponse<?> updateDepartmentStatus(
+            Long id,
+            String status
+    ) {
+
+        Department department = departmentRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Department not found.")
+                );
+
+        department.setStatus(status);
+
+        departmentRepository.save(department);
+
+        return ApiResponse.builder()
+                .success(true)
+                .message("Department status updated successfully.")
+                .data(department)
+                .build();
+
+    }
+
 }
