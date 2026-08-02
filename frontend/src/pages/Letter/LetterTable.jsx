@@ -23,9 +23,9 @@ import {
     Download
 } from "@mui/icons-material";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import letterService from "../../services/letterService";
 
@@ -135,13 +135,19 @@ function LetterTable() {
 
     };
 
-    const handleDownload = (fileName) => {
-        console.log("Downloading:", fileName);
-        window.open(
-            `http://localhost:8080/api/letters/download/${encodeURIComponent(fileName)}`,
-            "_blank"
-        );
+    const handleView = (fileName) => {
 
+        const url =
+            `${window.location.origin}/api/letters/view/${encodeURIComponent(fileName)}`;
+
+        window.open(url, "_blank");
+
+    };
+
+    const handleDownload = (fileName) => {
+        const url =
+            `${window.location.origin}/api/letters/download/${encodeURIComponent(fileName)}`;
+        window.open(url, "_blank");
     };
 
     return (
@@ -343,18 +349,35 @@ function LetterTable() {
 
                                                         <TableCell align="center">
                                                             {
-                                                                letter.attachment ?
-                                                                    <IconButton
-                                                                        color="primary"
-                                                                        onClick={() =>
-                                                                            handleDownload(letter.attachment)
-                                                                        }
-                                                                        title="Download Attachment"
-                                                                    >
-                                                                        <Download />
-                                                                    </IconButton>
-                                                                    :
+                                                                letter.attachment ? (
+
+                                                                    <>
+                                                                        <IconButton
+                                                                            color="info"
+                                                                            onClick={() =>
+                                                                                handleView(letter.attachment)
+                                                                            }
+                                                                            title="View Attachment"
+                                                                        >
+                                                                            <VisibilityIcon />
+                                                                        </IconButton>
+
+                                                                        <IconButton
+                                                                            color="primary"
+                                                                            onClick={() =>
+                                                                                handleDownload(letter.attachment)
+                                                                            }
+                                                                            title="Download Attachment"
+                                                                        >
+                                                                            <Download />
+                                                                        </IconButton>
+                                                                    </>
+
+                                                                ) : (
+
                                                                     "-"
+
+                                                                )
                                                             }
                                                         </TableCell>
                                                     </TableRow>

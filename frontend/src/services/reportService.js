@@ -1,5 +1,6 @@
 import axiosClient from "../api/axiosClient";
 
+
 const getLetterReport = async () => {
 
     const response = await axiosClient.get("/reports/letters");
@@ -11,11 +12,8 @@ const getLetterReport = async () => {
 const exportExcel = () => {
 
     window.open(
-
-        "http://localhost:8080/api/letters/report/excel",
-
+        `${window.location.origin}/api/letters/report/excel`,
         "_blank"
-
     );
 
 };
@@ -23,11 +21,13 @@ const exportExcel = () => {
 const exportPdf = () => {
 
     window.open(
-        "http://localhost:8080/api/letters/report/pdf",
+        `${window.location.origin}/api/letters/report/pdf`,
         "_blank"
     );
 
 };
+
+
 
 const reportService = {
 

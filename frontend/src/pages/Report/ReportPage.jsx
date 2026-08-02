@@ -19,7 +19,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -237,14 +237,20 @@ function ReportPage() {
 
     };
 
+    const handleView = (fileName) => {
+
+        const url =
+            `${window.location.origin}/api/letters/view/${encodeURIComponent(fileName)}`;
+
+        window.open(url, "_blank");
+
+    };
+
     const handleDownload = (fileName) => {
 
         window.open(
-
-            `http://localhost:8080/api/letters/download/${encodeURIComponent(fileName)}`,
-
+            `${window.location.origin}/api/letters/download/${encodeURIComponent(fileName)}`,
             "_blank"
-
         );
 
     };
@@ -631,37 +637,41 @@ function ReportPage() {
 
                                                                 </TableCell>
 
-                                                                <TableCell
-                                                                    align="center"
-                                                                >
+                                                                <TableCell align="center">
 
                                                                     {
 
-                                                                        letter.attachment ?
+                                                                        letter.attachment ? (
 
-                                                                            <IconButton
+                                                                            <>
 
-                                                                                color="primary"
+                                                                                <IconButton
+                                                                                    color="info"
+                                                                                    title="View Attachment"
+                                                                                    onClick={() =>
+                                                                                        handleView(letter.attachment)
+                                                                                    }
+                                                                                >
+                                                                                    <VisibilityIcon />
+                                                                                </IconButton>
 
-                                                                                onClick={() =>
+                                                                                <IconButton
+                                                                                    color="primary"
+                                                                                    title="Download Attachment"
+                                                                                    onClick={() =>
+                                                                                        handleDownload(letter.attachment)
+                                                                                    }
+                                                                                >
+                                                                                    <Download />
+                                                                                </IconButton>
 
-                                                                                    handleDownload(
+                                                                            </>
 
-                                                                                        letter.attachment
-
-                                                                                    )
-
-                                                                                }
-
-                                                                            >
-
-                                                                                <Download />
-
-                                                                            </IconButton>
-
-                                                                            :
+                                                                        ) : (
 
                                                                             "-"
+
+                                                                        )
 
                                                                     }
 
