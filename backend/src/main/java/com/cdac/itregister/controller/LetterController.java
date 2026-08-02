@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -105,6 +106,33 @@ public class LetterController {
                         "attachment; filename=\"" + resource.getFilename() + "\""
                 )
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
+    @GetMapping("/view/{fileName:.+}")
+    public ResponseEntity<Resource> viewFile(
+            @PathVariable String fileName) throws IOException {
+
+        Path path = Paths.get(uploadDir).resolve(fileName);
+
+        Resource resource = new UrlResource(path.toUri());
+
+        if (!resource.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        String contentType = Files.probeContentType(path);
+
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"" + resource.getFilename() + "\""
+                )
+                .contentType(MediaType.parseMediaType(contentType))
                 .body(resource);
     }
 
