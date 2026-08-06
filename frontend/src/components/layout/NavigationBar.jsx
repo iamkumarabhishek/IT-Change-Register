@@ -29,7 +29,9 @@ function NavigationBar() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    console.log("Logged in user:", user);
 
     const menus = [
         {
@@ -152,14 +154,21 @@ function NavigationBar() {
                     }}
                 >
 
-                    <Typography
+                    <Box
                         sx={{
-                            color: "#FFFFFF",
-                            fontWeight: 500
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                            mr: 2,
+                            color: "#fff"
                         }}
                     >
-                        {user?.fullName}
-                    </Typography>
+
+
+                        <Typography fontWeight="bold">
+                            Welcome, {user?.fullName}
+                        </Typography>
+                    </Box>
 
                     <Button
                         color="inherit"

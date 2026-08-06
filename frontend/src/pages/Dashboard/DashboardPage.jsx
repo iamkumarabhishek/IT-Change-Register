@@ -19,7 +19,7 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 
 function DashboardPage() {
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     return (
 

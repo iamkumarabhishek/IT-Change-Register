@@ -5,7 +5,7 @@ import igimsLogo from "../../assets/igims-logo.jpg";
 
 function DashboardHeader() {
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     return (
 
@@ -62,7 +62,7 @@ function DashboardHeader() {
 
                 <Typography variant="h6">
 
-                    Welcome, {user?.fullName}
+                    dashHeader, {user?.fullName}
 
                 </Typography>
 
