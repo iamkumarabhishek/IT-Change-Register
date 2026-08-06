@@ -1,0 +1,8 @@
+ id |        approved_at         | approved_by |         created_at         | created_by |       email        | email_verified |   full_name    | mobile_number |  password   | status  |         updated_at         | username |   role   
+----+----------------------------+-------------+----------------------------+------------+--------------------+----------------+----------------+---------------+-------------+---------+----------------------------+----------+----------
+  2 |                            |             | 2026-07-27 11:28:43.312321 |            | rahul@gmail.com    | f              | Rahul Kumar    | 9876543211    | password123 | PENDING | 2026-07-27 11:28:43.312346 | rahul    | IT_STAFF
+  1 | 2026-07-27 12:08:59.660098 | SYSTEM      | 2026-07-27 11:04:19.757745 |            | abhishek@gmail.com | f              | Abhishek Kumar | 9876543210    | abhi@123    | ACTIVE  | 2026-07-31 14:50:28.262915 | abhishek | IT_STAFF
+  6 |                            |             | 2026-08-01 13:42:49.195728 | abhi       | abhi@gmail.com     | f              | abhi           | 9006331027    | pass@123    | ACTIVE  | 2026-08-01 13:42:49.195737 | abhi     | IT_STAFF
+  7 | 2026-08-03 11:07:24.412223 | SYSTEM      | 2026-08-02 14:33:12.840447 | tarun123   | tarun@gmaill.com   | f              | Tarun deo      | 9089898789    | tarun@123   | ACTIVE  | 2026-08-03 11:07:24.672125 | tarun123 | IT_STAFF
+(4 rows)
+
