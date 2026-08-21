@@ -40,8 +40,6 @@ public class Letter {
     @Column(name = "uploaded_by", nullable = false, length = 100)
     private String uploadedBy;
 
-    @Column(columnDefinition = "TEXT")
-    private String remarks;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

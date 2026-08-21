@@ -18,8 +18,6 @@ public class LetterRequest {
 
     private String description;
 
-    private String remarks;
-
     private MultipartFile attachment;
 
 }

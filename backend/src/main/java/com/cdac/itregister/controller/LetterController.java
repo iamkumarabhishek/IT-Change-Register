@@ -48,7 +48,6 @@ public class LetterController {
 
             @RequestParam("description") String description,
 
-            @RequestParam("remarks") String remarks,
 
             @RequestParam("attachment") MultipartFile attachment,
 
@@ -62,7 +61,6 @@ public class LetterController {
         request.setDepartmentName(departmentName);
         request.setSubject(subject);
         request.setDescription(description);
-        request.setRemarks(remarks);
         request.setAttachment(attachment);
 
         ApiResponse<?> response = letterService.saveLetter(

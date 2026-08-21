@@ -91,7 +91,6 @@ public class LetterServiceImpl implements LetterService {
 
                     .description(request.getDescription())
 
-                    .remarks(request.getRemarks())
 
                     .attachment(fileName)
 
