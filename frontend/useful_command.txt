@@ -39,3 +39,10 @@ postman
 -------
 
 user approval : method PUT - http://192.168.5.118:8080/api/users/8/approve
+
+
+service
+-------
+stop : sudo systemctl stop it-register
+restart : sudo systemctl restart it-register
+status : sudo systemctl status it-register --no-pager
