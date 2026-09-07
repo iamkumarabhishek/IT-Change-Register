@@ -1,0 +1,41 @@
+ubuntu pc
+---------
+
+start postgres --> sudo -u postgres psql -d it_change_register_external
+
+compile spring --> ./mvnw clean package -DskipTests
+run spring --> ./mvnw spring-boot:run 
+
+build/run react --> npm run build
+
+
+windows pc
+----------
+start postgres --> postgres psql -u postgres -d it_change_register_external
+
+compile sprint --> .\mvnw clean package -DskipTests
+run spring --> .\mvnw.cmd spring-boot:run 
+
+build/run react --> npm run build
+
+
+kill the process for reopening intellij
+---------------------------------------
+
+pkill -9 -f '/snap/intellij-idea'
+intellij-idea
+
+
+cloudflare
+----------
+
+ubuntu [8080] - cloudflared tunnel --url http://localhost:8080
+ubuntu [8081] - cloudflared tunnel --url http://localhost:8081
+
+windows [8080] - cloudflared tunnel --url http://localhost:8080
+windows [8081] - cloudflared tunnel --url http://localhost:8081
+
+postman
+-------
+
+user approval : method PUT - http://192.168.5.118:8080/api/users/8/approve

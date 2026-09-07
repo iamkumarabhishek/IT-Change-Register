@@ -27,11 +27,10 @@ function LetterForm() {
     const [formData, setFormData] = useState({
 
         letterNumber: "",
-        letterDate: "",
+        letterDate: dayjs().format("YYYY-MM-DD"),
         department: "",
         subject: "",
-        description: "",
-        remarks: ""
+        description: ""
 
     });
 
@@ -109,8 +108,7 @@ function LetterForm() {
             letterDate: "",
             department: "",
             subject: "",
-            description: "",
-            remarks: ""
+            description: ""
 
         });
 
@@ -129,7 +127,6 @@ function LetterForm() {
             !formData.department ||
             !formData.subject ||
             !formData.description ||
-            !formData.remarks ||
             !selectedFile
 
         ) {
@@ -176,11 +173,6 @@ function LetterForm() {
             data.append(
                 "description",
                 formData.description
-            );
-
-            data.append(
-                "remarks",
-                formData.remarks
             );
 
             data.append(
@@ -427,23 +419,7 @@ function LetterForm() {
 
                 </Grid>
 
-                {/* Remarks */}
 
-                <Grid size={{ xs: 12, md: 8 }}>
-
-                    <TextField
-                        fullWidth
-                        required
-                        multiline
-                        rows={4}
-                        label="Remarks"
-                        name="remarks"
-                        placeholder="Enter remarks..."
-                        value={formData.remarks}
-                        onChange={handleChange}
-                    />
-
-                </Grid>
 
                 {/* Buttons */}
 
