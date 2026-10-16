@@ -88,9 +88,9 @@ function LetterForm() {
 
         if (!file) return;
 
-        if (file.size > 5 * 1024 * 1024) {
+        if (file.size > 10 * 1024 * 1024) {
 
-            alert("File size should not exceed 5 MB.");
+            alert("File size should not exceed 10 MB.");
 
             return;
 
